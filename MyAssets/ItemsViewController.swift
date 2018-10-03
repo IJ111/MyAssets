@@ -23,33 +23,10 @@ class ItemsViewController: UITableViewController {
             tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
         }
     }
-    
-    @IBAction func toggleEditingMode(sender: AnyObject) {
-        //if you are currently in editing mode
-        if isEditing {
-            //change text of button to inform user of state
-            sender.setTitle("Edit", for: .normal)
-            
-            //turn off editing mode
-            setEditing(false, animated: true)
-        } else {
-            //change text of button to inform user of state
-            sender.setTitle("Done", for: .normal)
-            
-            //enter editing mode
-            setEditing(true, animated: true)
-        }
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //get the height of the status bar
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        
-        let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
-        tableView.contentInset = insets
-        tableView.scrollIndicatorInsets = insets
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 65
@@ -110,6 +87,30 @@ class ItemsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         //update the model
         itemStore.moveItemAtIndex(fromIndex: sourceIndexPath.row, toIndex: destinationIndexPath.row)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //if the triggered segue is the "ShowItem" segue
+        if segue.identifier == "ShowItem" {
+            //figure out which row was just tapped
+            if let row = tableView.indexPathForSelectedRow?.row {
+                //get the item associated with this row and pass it along
+                let item = itemStore.allItems[row]
+                let detailViewController = segue.destination as! DetailViewController
+                detailViewController.item = item
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    //set the left bar button item (Edit)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        navigationItem.leftBarButtonItem = editButtonItem
     }
 }
 
