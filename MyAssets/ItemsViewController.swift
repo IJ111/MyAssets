@@ -10,7 +10,35 @@ import UIKit
 
 class ItemsViewController: UITableViewController {
     var itemStore: ItemStore!
+    var imageStore: ImageStore!
     
+    
+    // MARK: - Initializers
+    //set the left bar button item (Edit)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        navigationItem.leftBarButtonItem = editButtonItem
+    }
+    
+    
+    
+    // MARK: - View life cycles
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 65
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    
+    
+    // MARK: - Actions
     @IBAction func addNewItem(sender: AnyObject) {
         //create a new item and add it to the store
         let newItem = itemStore.createItem()
@@ -23,16 +51,25 @@ class ItemsViewController: UITableViewController {
             tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
         }
     }
-
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 65
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //if the triggered segue is the "ShowItem" segue
+        if segue.identifier == "ShowItem" {
+            //figure out which row was just tapped
+            if let row = tableView.indexPathForSelectedRow?.row {
+                //get the item associated with this row and pass it along
+                let item = itemStore.allItems[row]
+                let detailViewController = segue.destination as! DetailViewController
+                detailViewController.item = item
+                detailViewController.imageStore = imageStore
+            }
+        }
     }
     
     
+    
+    // MARK: - UITableViewDataSource methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection didSelectRowInSection: Int) -> Int {
         return itemStore.allItems.count
     }
@@ -74,6 +111,9 @@ class ItemsViewController: UITableViewController {
                 //remove the item from the store
                 self.itemStore.removeItem(item: item)
                 
+                //remove the item's image from the image store
+                self.imageStore.deleteImageForKey(key: item.itemKey)
+                
                 //also remove that row from the table view with an animation
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
             })
@@ -84,33 +124,10 @@ class ItemsViewController: UITableViewController {
         }
     }
     
+    
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         //update the model
         itemStore.moveItemAtIndex(fromIndex: sourceIndexPath.row, toIndex: destinationIndexPath.row)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //if the triggered segue is the "ShowItem" segue
-        if segue.identifier == "ShowItem" {
-            //figure out which row was just tapped
-            if let row = tableView.indexPathForSelectedRow?.row {
-                //get the item associated with this row and pass it along
-                let item = itemStore.allItems[row]
-                let detailViewController = segue.destination as! DetailViewController
-                detailViewController.item = item
-            }
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
-    
-    //set the left bar button item (Edit)
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        navigationItem.leftBarButtonItem = editButtonItem
     }
 }
 

@@ -16,6 +16,7 @@
 		86BBCB5F2163E73A0090E8EB /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BBCB5E2163E73A0090E8EB /* ItemStore.swift */; };
 		86BBCB61216449E40090E8EB /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BBCB60216449E40090E8EB /* ItemCell.swift */; };
 		86BBCB632165372E0090E8EB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BBCB622165372E0090E8EB /* DetailViewController.swift */; };
+		86BBCB65216555D80090E8EB /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BBCB64216555D80090E8EB /* ImageStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		86BBCB5E2163E73A0090E8EB /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
 		86BBCB60216449E40090E8EB /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		86BBCB622165372E0090E8EB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		86BBCB64216555D80090E8EB /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				86BBCB5A2163E2180090E8EB /* ItemsViewController.swift */,
 				86BBCB60216449E40090E8EB /* ItemCell.swift */,
 				86BBCB4C2163E0080090E8EB /* Main.storyboard */,
+				86BBCB64216555D80090E8EB /* ImageStore.swift */,
 				86BBCB622165372E0090E8EB /* DetailViewController.swift */,
 				86BBCB4F2163E0080090E8EB /* Assets.xcassets */,
 				86BBCB512163E0080090E8EB /* LaunchScreen.storyboard */,
@@ -153,6 +156,7 @@
 				86BBCB5F2163E73A0090E8EB /* ItemStore.swift in Sources */,
 				86BBCB632165372E0090E8EB /* DetailViewController.swift in Sources */,
 				86BBCB492163E0080090E8EB /* AppDelegate.swift in Sources */,
+				86BBCB65216555D80090E8EB /* ImageStore.swift in Sources */,
 				86BBCB61216449E40090E8EB /* ItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
